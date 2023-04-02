@@ -1,0 +1,26 @@
+{
+  "name": "oyat-hub",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "this is where features are outlined\r anything i want",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tunebanitune/oyat-hub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tunebanitune/oyat-hub/issues"
+  },
+  "homepage": "https://github.com/tunebanitune/oyat-hub#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "redis": "^4.6.5",
+    "socket.io": "^4.6.1"
+  }
+}
