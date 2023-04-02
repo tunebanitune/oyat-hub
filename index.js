@@ -36,7 +36,8 @@ class Communication {
         });
     }
 
-    start(port) {
+    start() {
+        const port = process.env.PORT || 5500;
         this.server.listen(port, () => {
             console.log(`## server is running on port ${port}`);
         })
@@ -44,4 +45,4 @@ class Communication {
 }
 
 const app = new Communication();
-app.start(5500);
+app.start();
