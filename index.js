@@ -21,7 +21,7 @@ class Communication {
         console.log('##configuring express');
         this.app.use(cors());
         this.app.use(express.static('public'));
-        this.app.use('/communicationClient', express.static('public/communicationClient'));
+        // this.app.use('/communicationClient', express.static('public/communicationClient')); // for publicold
         this.app.get('/socket.io/socket.io.js', (req, res) => {
             res.setHeader('Content-Type', 'application/javascript');
             res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
