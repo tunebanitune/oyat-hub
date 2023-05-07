@@ -26,6 +26,18 @@ class Communication {
             res.setHeader('Content-Type', 'application/javascript');
             res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
         });
+
+        this.app.post('/add_user', (req, res) => {
+            const user = req.body;
+            // Call the function to add a user to PostgreSQL database
+            addUserToDatabase(user)
+                .then(() => res.sendStatus(200))
+                .catch((err) => {
+                    console.error(err);
+                    res.sendStatus(500);
+                });
+        });
+
         console.log('##express configured');
     }
 
@@ -49,6 +61,11 @@ class Communication {
             console.log(`## server is running on port ${port}`);
         })
     }
+}
+
+// Implement this function to add a user to your PostgreSQL database
+async function addUserToDatabase(user) {
+    // Add code to insert the user into the 'Users' table
 }
 
 const app = new Communication();
