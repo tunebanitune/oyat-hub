@@ -30,6 +30,8 @@ class Communication {
         });
 
         this.app.post('/add_user', (req, res) => {
+            console.log('##add_user: '+JSON.stringify(req));
+            console.log('##add_user body: '+JSON.stringify(req.body))
             const user = req.body;
             // Call the function to add a user to PostgreSQL database
             addUserToDatabase(user)
