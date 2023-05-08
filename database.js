@@ -1,10 +1,19 @@
 import pkg from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
+console.log('##log process env vars: '+JSON.stringify(process.env));
 const { Pool } = pkg;
 
 export { createTables, addUserToDatabase, getUserByNameAndIdentifier };
 
-const connectionString = process.env.DATABASE_URL;
-const pool = new Pool({ connectionString });
+const connectionString = decodeURIComponent(process.env.DATABASE_URL);
+console.log('##connectionString: ' + JSON.stringify(connectionString));
+const pool = new Pool({
+  connectionString,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 const createTables = async () => {
   try {
