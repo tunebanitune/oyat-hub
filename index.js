@@ -5,7 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 dotenv.config();
 
-import { createTables, addUserToDatabase } from './database.js';
+import { createTables, addUserToDatabase, getUserByNameAndIdentifier } from './database.js';
 
 class Communication {
     constructor() {
@@ -42,6 +42,22 @@ class Communication {
                 });
         });
 
+        app.get('/get_user_by_name_and_identifier', async (req, res) => {
+            const name = req.query.name;
+            const identifier = req.query.identifier;
+            try {
+              const user = await getUserByNameAndIdentifier(name, identifier);
+              if (user) {
+                res.json(user);
+              } else {
+                res.status(404).send('User not found');
+              }
+            } catch (err) {
+              console.error(err);
+              res.status(500).send('Internal server error');
+            }
+          });
+
         console.log('##express configured');
     }
 
@@ -65,11 +81,6 @@ class Communication {
             console.log(`## server is running on port ${port}`);
         })
     }
-}
-
-// Implement this function to add a user to your PostgreSQL database
-async function addUserToDatabase(user) {
-    // Add code to insert the user into the 'Users' table
 }
 
 const app = new Communication();
