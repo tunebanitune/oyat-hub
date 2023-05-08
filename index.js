@@ -2,8 +2,8 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import dotenv from 'dotenv'
-dotenv.config();
+import { config as dotenvConfig } from 'dotenv';
+dotenvConfig();
 
 import { createTables, addUserToDatabase, getUserByNameAndIdentifier } from './database.js';
 
@@ -42,7 +42,7 @@ class Communication {
                 });
         });
 
-        app.get('/get_user_by_name_and_identifier', async (req, res) => {
+        this.app.get('/get_user_by_name_and_identifier', async (req, res) => {
             const name = req.query.name;
             const identifier = req.query.identifier;
             try {
