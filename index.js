@@ -5,7 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 dotenv.config();
 
-import { createTables, addUserToDatabase } from './database.js';
+import { createTables, addUserToDatabase, getUserByNameAndIdentifier } from './database.js';
 
 class Communication {
     constructor() {
@@ -30,6 +30,34 @@ class Communication {
             res.setHeader('Content-Type', 'application/javascript');
             res.sendFile(__dirname + '/node_modules/socket.io/client-dist/socket.io.js');
         });
+
+        this.app.post('/add_user', (req, res) => {
+            const user = req.body;
+            // Call the function to add a user to PostgreSQL database
+            addUserToDatabase(user)
+                .then(() => res.sendStatus(200))
+                .catch((err) => {
+                    console.error(err);
+                    res.sendStatus(500);
+                });
+        });
+
+        app.get('/get_user_by_name_and_identifier', async (req, res) => {
+            const name = req.query.name;
+            const identifier = req.query.identifier;
+            try {
+              const user = await getUserByNameAndIdentifier(name, identifier);
+              if (user) {
+                res.json(user);
+              } else {
+                res.status(404).send('User not found');
+              }
+            } catch (err) {
+              console.error(err);
+              res.status(500).send('Internal server error');
+            }
+          });
+
         console.log('##express configured');
     }
 
