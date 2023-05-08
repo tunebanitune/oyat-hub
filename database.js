@@ -2,14 +2,8 @@ import { Pool } from 'pg';
 
 export { createTables, addUserToDatabase };
 
-const pool = new Pool({
-  // Add your PostgreSQL connection details
-  host: 'your_host',
-  user: 'your_user',
-  password: 'your_password',
-  database: 'your_database',
-  port: your_port,
-});
+const connectionString = process.env.DATABASE_URL;
+const pool = new Pool({ connectionString });
 
 const createTables = async () => {
   try {
