@@ -41,6 +41,7 @@ const createTables = async () => {
 
 const addUserToDatabase = async (user) => {
   try {
+    console.log('Adding user to database:', JSON.stringify(user));
     const result = await pool.query(`
       INSERT INTO Users (PHONE, NAME, FACE, STATUS, IDENTIFIER)
       VALUES ($1, $2, $3, $4, $5)
@@ -56,6 +57,7 @@ const addUserToDatabase = async (user) => {
 
 const getUserByNameAndIdentifier = async (name, identifier) => {
   try {
+    console.log('Getting user by name and identifier:', JSON.stringify(name), + ' | ' + JSON.stringify(identifier));
     const result = await pool.query(`
       SELECT * FROM Users
       WHERE NAME = $1 AND IDENTIFIER = $2;
