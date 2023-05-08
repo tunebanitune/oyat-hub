@@ -2,8 +2,6 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
-import { config as dotenvConfig } from 'dotenv';
-dotenvConfig();
 
 import { createTables, addUserToDatabase, getUserByNameAndIdentifier } from './database.js';
 
