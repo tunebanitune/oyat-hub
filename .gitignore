@@ -108,3 +108,4 @@ dist
 
 # Environment config
 .env
+environment_variables.env
