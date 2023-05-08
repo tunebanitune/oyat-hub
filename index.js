@@ -2,6 +2,10 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import dotenv from 'dotenv'
+dotenv.config();
+
+import { createTables, addUserToDatabase } from './database.js';
 
 class Communication {
     constructor() {
@@ -69,4 +73,8 @@ async function addUserToDatabase(user) {
 }
 
 const app = new Communication();
-app.start();
+createTables().then(() => {
+    app.start();
+  }).catch((error) => {
+    console.error('Error initializing database:', error);
+  });
