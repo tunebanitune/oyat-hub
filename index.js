@@ -23,6 +23,8 @@ class Communication {
         console.log('##configuring express');
         this.app.use(cors());
         this.app.use(express.static('public'));
+        this.app.use(express.json()); 
+        
         // this.app.use('/communicationClient', express.static('public/communicationClient')); // for publicold
         this.app.get('/socket.io/socket.io.js', (req, res) => {
             res.setHeader('Content-Type', 'application/javascript');
@@ -30,7 +32,6 @@ class Communication {
         });
 
         this.app.post('/add_user', (req, res) => {
-            console.log('##add_user: '+JSON.stringify(req));
             console.log('##add_user body: '+JSON.stringify(req.body))
             const user = req.body;
             // Call the function to add a user to PostgreSQL database
