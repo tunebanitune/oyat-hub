@@ -3,6 +3,8 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 
+import { createTables, addUserToDatabase } from './database.js';
+
 class Communication {
     constructor() {
         this.app = express();
@@ -52,4 +54,8 @@ class Communication {
 }
 
 const app = new Communication();
-app.start();
+createTables().then(() => {
+    app.start();
+  }).catch((error) => {
+    console.error('Error initializing database:', error);
+  });
